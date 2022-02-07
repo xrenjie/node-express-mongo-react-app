@@ -9,6 +9,7 @@ export function useAuth() {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
 
+  //check if user is already logged in on refresh
   useEffect(() => {
     const currentUser = window.localStorage.getItem("user");
     if (currentUser) {
@@ -16,6 +17,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  //logout and clear local storage
   function logout() {
     setUser(null);
     window.localStorage.removeItem("user");

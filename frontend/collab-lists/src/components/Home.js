@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import Button from "react-bootstrap/Button";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
 import NewListModal from "./NewListModal";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
-import List from "./List";
+import { useAuth } from "../contexts/AuthContext";
+import EditListModal from "./EditListModal";
 
 const Home = () => {
   const { user, setUser } = useAuth();
@@ -15,6 +15,8 @@ const Home = () => {
   const [update, setUpdate] = useState(true);
   const [listToEdit, setListToEdit] = useState(null);
 
+  //keeps track of whether or not the user is logged in on refresh
+  //also updates lists when *update* is true (happens when a list is added)
   useEffect(() => {
     const currentUser = window.localStorage.getItem("user");
     if (currentUser) {
@@ -69,7 +71,7 @@ const Home = () => {
             />
           ) : null}
           {showEditListModal ? (
-            <List
+            <EditListModal
               handleClose={handleCloseEditListModal}
               showEditListModal={showEditListModal}
               forceUpdate={forceUpdate}
@@ -82,13 +84,8 @@ const Home = () => {
             {lists.map((list) => {
               return (
                 <Card style={{ width: "18rem" }} key={list._id}>
-                  {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                   <Card.Body>
                     <Card.Title>{list.title}</Card.Title>
-                    {/* <Card.Text>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </Card.Text> */}
                     <Button
                       variant="primary"
                       onClick={(e) => handleEditListButton(e)}

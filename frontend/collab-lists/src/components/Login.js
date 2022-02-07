@@ -11,9 +11,9 @@ const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
+  //login and redirect to home page
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios
       .get(`http://localhost:5000/users/login?username=${username}`)
       .then((res) => {

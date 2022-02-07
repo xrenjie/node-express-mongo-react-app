@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from "react";
+import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 
-const List = ({
+const EditListModal = ({
   handleClose,
   showEditListModal,
   forceUpdate,
@@ -19,6 +19,7 @@ const List = ({
   const [users, setUsers] = useState([]);
   const [count, setCount] = useState(0);
 
+  //gives ids to each list's items and users so that they can be referenced later
   useEffect(() => {
     let itemcount = 0;
     setItems(
@@ -39,6 +40,7 @@ const List = ({
     setListName(lists.filter((list) => list._id === listToEdit)[0].title);
   }, [listToEdit, lists]);
 
+  //update list with title, items, and users
   const handleSubmit = (e) => {
     axios
       .post(`http://localhost:5000/lists/update/${listToEdit}`, {
@@ -53,6 +55,7 @@ const List = ({
     handleClose();
   };
 
+  //delete list
   const handleDelete = (e) => {
     axios
       .delete(`http://localhost:5000/lists/${listToEdit}`)
@@ -65,6 +68,7 @@ const List = ({
       });
   };
 
+  //setcount for forcing react to update component
   const handleAddItem = async (e) => {
     let newItems = items;
     newItems.push({ itemName: "New Item", id: items.length });
@@ -209,4 +213,4 @@ const List = ({
   );
 };
 
-export default List;
+export default EditListModal;
