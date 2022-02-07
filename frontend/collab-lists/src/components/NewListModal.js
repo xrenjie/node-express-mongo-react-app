@@ -11,7 +11,7 @@ const NewListModal = ({ handleClose, showNewListModal, forceUpdate }) => {
 
   const handleSubmit = (e) => {
     axios
-      .post("http://localhost:5000/lists/add", {
+      .post(`${process.env.REACT_APP_SERVER_URL}/lists/add`, {
         owner: user,
         title: listName,
       })

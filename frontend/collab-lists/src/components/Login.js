@@ -15,7 +15,9 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .get(`http://localhost:5000/users/login?username=${username}`)
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/users/login?username=${username}`
+      )
       .then((res) => {
         if (res.status === 200) {
           setUser(username);

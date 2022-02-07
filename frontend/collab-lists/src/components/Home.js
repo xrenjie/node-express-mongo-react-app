@@ -23,14 +23,18 @@ const Home = () => {
       setUser(currentUser);
     }
     if (user) {
-      axios.get("http://localhost:5000/lists/" + user).then((res) => {
-        setLists(res.data);
-      });
+      axios
+        .get(`${process.env.REACT_APP_SERVER_URL}/lists/${user}`)
+        .then((res) => {
+          setLists(res.data);
+        });
     }
     if (update) {
-      axios.get("http://localhost:5000/lists/" + user).then((res) => {
-        setLists(res.data);
-      });
+      axios
+        .get(`${process.env.REACT_APP_SERVER_URL}/lists/${user}`)
+        .then((res) => {
+          setLists(res.data);
+        });
       setUpdate(false);
     }
   }, [update, user, setUser]);

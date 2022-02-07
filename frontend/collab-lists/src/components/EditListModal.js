@@ -43,7 +43,7 @@ const EditListModal = ({
   //update list with title, items, and users
   const handleSubmit = (e) => {
     axios
-      .post(`http://localhost:5000/lists/update/${listToEdit}`, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/lists/update/${listToEdit}`, {
         title: listName,
         items: items.map((item) => item.itemName),
         users: users.map((user) => user.userName),
@@ -58,7 +58,7 @@ const EditListModal = ({
   //delete list
   const handleDelete = (e) => {
     axios
-      .delete(`http://localhost:5000/lists/${listToEdit}`)
+      .delete(`${process.env.REACT_APP_SERVER_URL}/lists/${listToEdit}`)
       .then(() => {
         forceUpdate();
         handleClose();
